@@ -1,9 +1,9 @@
 let mapleader="\<Space>"
 call plug#begin('~/.vim/plugged')
+Plug 'tpope/vim-fugitive'
 Plug 'sheerun/vim-polyglot'
 Plug 'honza/vim-snippets'
 Plug 'joshdick/onedark.vim'
-Plug 'ryanoasis/vim-devicjoshdick/onedark.vimons'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
@@ -24,24 +24,26 @@ set ts=4
 set sw=4
 set number
 set relativenumber
-nmap + :vertical resize +5<CR>
-nmap _ :vertical resize -5<CR>
-nmap <F12> :source $MYVIMRC<CR>
-nmap <C-d> yy p
-imap <C-d> <ESC> yy p i
-nmap <s-w> :bn <cr>
-nmap <S-h> ^ 
-nmap <S-l> $
-nmap <C-s> :tabe<CR>:term<CR>i 
-nmap <C-l> :tabe<CR>:term lazygit<CR>
-imap mm <ESC>
-vmap mm <ESC>
+nnoremap + :vertical resize +5<CR>
+nnoremap _ :vertical resize -5<CR>
+nnoremap <F12> :source $MYVIMRC<CR>
+nnoremap <C-d> yy p
+inoremap <C-d> <ESC> yy p i
+nnoremap <s-w> :bn <cr>
+nnoremap <S-h> ^ 
+nnoremap <S-l> $
+nnoremap <C-s> :tabe<CR>:term<CR>i 
+nnoremap <C-l> :tabe<CR>:term lazygit<CR>i
+inoremap dj <ESC>
+vnoremap dj <ESC>
 nmap , :noh<CR>
+nnoremap wh <c-w>h
+nnoremap wl <C-w>l
 set  pastetoggle=<F9>
 set hidden
 let g:UltiSnipsExpandTrigger="entry"
-let g:UltiSnipsJumpForwardTrigger="<A-j>"
-let g:UltiSnipsJumpBackwardTrigger="<A-k>"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
+let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
@@ -51,9 +53,7 @@ nnoremap<leader>q :q!<CR>
 nnoremap<leader>w :w<CR>
 nnoremap<leader>n :bd<CR>
 nnoremap<leader>f :FZF<CR>
-nnoremap<leader>h <C-w>h
-nnoremap<leader>l <C-w>l
-nnoremap<leader>s :vs<CR>
+nnoremap<leader>s :vs 
 " coc config
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -98,7 +98,7 @@ func! CompileRunGcc()
 		set splitbelow
 		:!python3 %
 	elseif &filetype == 'html'
-		silent! exec "!".g:mkdp_browser." % &"
+		:!chromium %
 	elseif &filetype == 'markdown'
 		exec "InstantMarkdownPreview"
 	elseif &filetype == 'tex'
